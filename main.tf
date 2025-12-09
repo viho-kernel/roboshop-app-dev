@@ -17,7 +17,7 @@ resource "aws_lb_target_group" "component" {
 
 module "component" {
   source                 = "terraform-aws-modules/ec2-instance/aws"
-  ami           = data.ami_id.joindevops.id
+  ami           = data.aws_ami.joindevops.id
   name = "${local.name}-${var.tags.Component}-ami"
   instance_type = "t3.micro"
   vpc_security_group_ids = [var.component_sg_id]
@@ -55,9 +55,9 @@ resource "null_resource" "component" {
 }
 
 resource "aws_ec2_instance_state" "component" {
-  instance_id = aws_instance.component.id
+  instance_id = module.component.id
   state       = "stopped"
-  depends_on = [terraform_data.component]
+  depends_on = [null_resource.component]
 }
 
 resource "aws_ami_from_instance" "component" {
