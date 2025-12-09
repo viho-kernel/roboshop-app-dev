@@ -36,8 +36,8 @@ resource "terrafrom_data" "main" {
   ]
   
   provisioner "file" {
-    source      = "component.sh"
-    destination = "/tmp/component.sh"
+    source      = "boostrap.sh"
+    destination = "/tmp/${var.component}.sh"
   }
 
   connection {
