@@ -17,7 +17,7 @@ resource "aws_lb_target_group" "main" {
 
 resource "aws_instance" "main" {
   ami           = local.ami_id
-  instance_type = "t3.micro"
+  instance_type = "t3a.micro"
   vpc_security_group_ids = [local.sg_id]
   subnet_id = local.private_subnet_id
   #iam_instance_profile = "EC2RoleToFetchSSMParams"
@@ -30,7 +30,7 @@ resource "aws_instance" "main" {
 }
 
 
-resource "terrafrom_data" "main" {
+resource "terraform_data" "main" {
   triggers_replace = [
     aws_instance.main.id
   ]
@@ -63,7 +63,7 @@ resource "aws_ec2_instance_state" "main" {
 
 resource "aws_ami_from_instance" "main" {
   name               = "${var.project}-${var.environment}-${var.component}"
-  source_instance_id = aws_instance.component.id
+  source_instance_id = aws_instance.main.id
   depends_on = [aws_ec2_instance_state.main]
   tags = merge(
     local.common_tags,
@@ -131,7 +131,7 @@ resource "aws_autoscaling_group" "main" {
   desired_capacity   = 1
   max_size           = 10
   min_size           = 1
-  target_group_arns = [aws_lb_target_group.component.arn]
+  target_group_arns = [aws_lb_target_group.main.arn]
   vpc_zone_identifier  = local.private_subnet_ids
   health_check_grace_period = 90
   health_check_type         = "ELB"
