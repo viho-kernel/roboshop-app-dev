@@ -1,0 +1,13 @@
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Keys
+*.pem
+*.pub
+
+# Local scripts/logs
+*.log
+*.tmp
