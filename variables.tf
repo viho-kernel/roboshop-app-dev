@@ -7,45 +7,17 @@ variable "environment" {
 }
 
 variable "zone_name" {
-    #default = "opsora.space"
+    default = "opsora.space"
 }
 
-variable "vpc_id" {
-  
+variable "zone_id" {
+    default = "Z0837413U5UCNNDSOD1K"
 }
 
-variable "component_sg_id" {
-  
-}
+variable "component" {
 
-variable "private_subnet_ids" {
-  
-}
-
-variable "iam_instance_profile" {
-  
-}
-
-variable "backend_alb_listener_arn" {
-  
 }
 
 variable "rule_priority" {
-  
-}
-
-variable "app_version" {
-
-}
-
-variable "common_tags" {
-#   default = {
-#     Project     = "roboshop"
-#     Environment = "dev"
-#     Terraform   = "true"
-#   }
-}
-
-variable "tags" {
   
 }
